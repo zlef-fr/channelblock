@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <!--zlef-seo-->
+  <meta name="description" content="Watch ChannelBlock in action — a ~1-minute live demo: one channel filling a YouTube search, then one click on the 🚫 button purging every one of its videos, and its channel page walled off.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://channelblock.zlef.fr/preview">
+  <meta name="theme-color" content="#06060a">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" href="https://assets.zlef.fr/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="https://assets.zlef.fr/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="https://assets.zlef.fr/apple-touch-icon.png">
+  <link rel="manifest" href="https://assets.zlef.fr/site.webmanifest">
+  <meta property="og:type" content="video.other">
+  <meta property="og:site_name" content="ZLEF">
+  <meta property="og:title" content="ChannelBlock — live demo">
+  <meta property="og:description" content="~1-minute live demo: one click blocks a YouTube channel and purges its videos everywhere.">
+  <meta property="og:url" content="https://channelblock.zlef.fr/preview">
+  <meta property="og:image" content="https://channelblock.zlef.fr/preview-poster.jpg?v=1">
+  <meta property="og:video" content="https://channelblock.zlef.fr/demo.mp4?v=1">
+  <meta property="og:video:type" content="video/mp4">
+  <meta property="og:video:width" content="1366">
+  <meta property="og:video:height" content="768">
+  <meta name="twitter:card" content="player">
+  <meta name="twitter:title" content="ChannelBlock — live demo">
+  <meta name="twitter:description" content="~1-minute live demo of ChannelBlock blocking a YouTube channel for good.">
+  <meta name="twitter:image" content="https://channelblock.zlef.fr/preview-poster.jpg?v=1">
+  <meta name="twitter:player" content="https://channelblock.zlef.fr/preview">
+  <meta name="twitter:player:width" content="1366">
+  <meta name="twitter:player:height" content="768">
+  <!--/zlef-seo-->
+  <title>ChannelBlock — live demo</title>
+  <link rel="stylesheet" href="https://da.zlef.fr/tokens.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--zl-bg, #06060a); color: var(--zl-text, #e9eae2);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    .wrap { max-width: 1000px; margin: 0 auto; padding: 28px 24px 72px; }
+    .top { display: flex; align-items: center; gap: 12px; margin-bottom: 30px; }
+    .logo { width: 36px; height: 36px; border-radius: 9px; background: var(--zl-olive, #3e4618);
+      color: var(--zl-olive-bright, #bdce74); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .logo svg { width: 21px; height: 21px; }
+    .wordmark { font-size: 19px; font-weight: 700; letter-spacing: -0.02em; }
+    .wordmark span { color: var(--zl-olive-soft, #9dae50); }
+    .top a.back { margin-left: auto; color: var(--zl-text-muted, #7d7e76); text-decoration: none; font-size: 14.5px; }
+    .top a.back:hover { color: var(--zl-olive-soft, #9dae50); }
+
+    .eyebrow { text-transform: uppercase; letter-spacing: 0.14em; font-size: 13px; font-weight: 550;
+      color: var(--zl-olive-soft, #9dae50); margin-bottom: 12px; }
+    h1 { font-size: clamp(28px, 4.4vw, 40px); letter-spacing: -0.022em; line-height: 1.08; font-weight: 700; }
+    .lede { color: var(--zl-text-soft, #b6b7ad); margin: 14px 0 26px; max-width: 46em; }
+    .lede code { font-family: ui-monospace, Menlo, monospace; font-size: 14px; color: var(--zl-olive-soft, #9dae50); }
+
+    .player { border: 1px solid rgba(255,255,255,.1); border-radius: 14px; overflow: hidden;
+      box-shadow: 0 26px 70px rgba(0,0,0,.6); background: #000; }
+    video { display: block; width: 100%; height: auto; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .chip { display: inline-flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--zl-text-soft, #b6b7ad);
+      background: var(--zl-surface-1, #0e0e13); border: 1px solid rgba(255,255,255,.08); border-radius: 999px; padding: 8px 15px; }
+    .chip b { color: var(--zl-olive-bright, #bdce74); font-weight: 600; }
+
+    .cta-row { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; margin-top: 30px; }
+    .btn { display: inline-flex; align-items: center; gap: 9px; padding: 13px 22px; border-radius: 5px;
+      font-size: 15px; font-weight: 600; text-decoration: none; cursor: pointer; border: 1px solid transparent;
+      transition: background .15s ease, border-color .15s ease, color .15s ease; }
+    .btn--primary { background: var(--zl-olive, #3e4618); color: var(--zl-olive-bright, #bdce74); }
+    .btn--primary:hover { background: var(--zl-olive-mid, #59642a); }
+    .btn--ghost { border-color: rgba(255,255,255,.13); color: var(--zl-text, #e9eae2); }
+    .btn--ghost:hover { border-color: var(--zl-olive-soft, #9dae50); color: var(--zl-olive-soft, #9dae50); }
+
+    footer { margin-top: 46px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,.07);
+      color: var(--zl-text-faint, #54554f); font-size: 13.5px; display: flex; gap: 16px; flex-wrap: wrap; }
+    footer a { color: var(--zl-text-muted, #7d7e76); text-decoration: none; }
+    footer a:hover { color: var(--zl-olive-soft, #9dae50); }
+    footer .sp { margin-left: auto; }
+  </style>
+</head>
+<body class="zl-scope">
+  <div class="wrap">
+    <div class="top">
+      <div class="logo"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><line x1="5.6" y1="5.6" x2="18.4" y2="18.4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></div>
+      <div class="wordmark">Channel<span>Block</span></div>
+      <a class="back" href="/">← Back to site</a>
+    </div>
+
+    <div class="eyebrow">Live demo · ~1 minute</div>
+    <h1>See it actually work.</h1>
+    <p class="lede">A real screen recording — Chromium with the extension loaded, browsing live YouTube.
+      One channel keeps filling the search results; one click on the <code>🚫</code> button purges every one
+      of its videos, and a visit to its channel page is walled off.</p>
+
+    <div class="player">
+      <video controls preload="metadata" playsinline poster="/preview-poster.jpg?v=1">
+        <source src="/demo.mp4?v=1" type="video/mp4">
+        Your browser can't play this video. <a href="/demo.mp4?v=1">Download it</a> instead.
+      </video>
+    </div>
+
+    <div class="chips">
+      <span class="chip"><b>0:03</b> the landing page</span>
+      <span class="chip"><b>0:14</b> <b>before</b> — one channel all over the results</span>
+      <span class="chip"><b>0:35</b> one click on the <b>🚫 block button</b></span>
+      <span class="chip"><b>0:45</b> <b>after</b> — every video from that channel, gone</span>
+      <span class="chip"><b>0:58</b> their channel page is walled off</span>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn--primary" href="/channelblock.zip?v=1.0.0" download>↓ Download — Free</a>
+      <a class="btn btn--ghost" href="/#install">How to install</a>
+    </div>
+
+    <footer>
+      <a href="/">Home</a>
+      <a href="/#faq">FAQ</a>
+      <a href="/privacy">Privacy</a>
+      <a href="https://projects.zlef.fr">More by ZLEF</a>
+      <span class="sp">A ZLEF project · zlef.fr</span>
+    </footer>
+  </div>
+</body>
+</html>

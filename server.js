@@ -79,7 +79,31 @@ const server = http.createServer((req, res) => {
       const ext = path.extname(file).toLowerCase();
       const type = MIME[ext] || 'application/octet-stream';
       const cache = ext === '.html' ? 'no-cache' : 'public, max-age=3600';
-      const headers = { 'content-type': type, 'cache-control': cache, 'content-length': st.size };
+
+      // Range support (video seeking, resumable downloads).
+      const range = req.headers.range;
+      if (range) {
+        const m = /^bytes=(\d*)-(\d*)$/.exec(range);
+        if (m) {
+          let start = m[1] === '' ? null : parseInt(m[1], 10);
+          let end = m[2] === '' ? st.size - 1 : parseInt(m[2], 10);
+          if (start === null) { start = st.size - end; end = st.size - 1; } // suffix range
+          if (start > end || start < 0 || end >= st.size) {
+            res.writeHead(416, { 'content-range': `bytes */${st.size}` });
+            return res.end();
+          }
+          res.writeHead(206, {
+            'content-type': type,
+            'content-range': `bytes ${start}-${end}/${st.size}`,
+            'accept-ranges': 'bytes',
+            'content-length': end - start + 1,
+            'cache-control': cache,
+          });
+          return fs.createReadStream(file, { start, end }).pipe(res);
+        }
+      }
+
+      const headers = { 'content-type': type, 'cache-control': cache, 'accept-ranges': 'bytes', 'content-length': st.size };
       if (ext === '.zip') headers['content-disposition'] = 'attachment; filename="channelblock.zip"';
       if (ext === '.xpi') headers['content-disposition'] = 'attachment; filename="channelblock-firefox.xpi"';
       res.writeHead(200, headers);

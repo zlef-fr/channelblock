@@ -50,9 +50,6 @@
     .bar nav a { color: var(--zl-text-muted, #7d7e76); text-decoration: none; font-size: 14.5px; }
     .bar nav a:hover { color: var(--zl-olive-soft, #9dae50); }
     .bar nav a.cta { color: var(--zl-olive-bright, #bdce74); font-weight: 600; }
-    .langsw { display: inline-flex; gap: 2px; background: var(--zl-surface-2, #15151c); border: 1px solid var(--zl-line, rgba(255,255,255,.07)); border-radius: 6px; padding: 2px; }
-    .langsw button { background: none; border: 0; color: var(--zl-text-muted, #7d7e76); font: 600 12px system-ui; padding: 4px 8px; border-radius: 4px; cursor: pointer; }
-    .langsw button.on { background: var(--zl-olive, #3e4618); color: var(--zl-olive-bright, #bdce74); }
     @media (max-width: 720px) { .bar nav a.hide-sm { display: none; } }
 
     .hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center; padding: 64px 0 80px; }
@@ -131,6 +128,13 @@
     .statnote { text-align: center; margin-top: 18px; font-size: 13.5px; color: var(--zl-text-muted, #7d7e76); }
     .statnote a { color: var(--zl-olive-soft, #9dae50); text-decoration: none; }
 
+    .demo-player { margin-top: 30px; border: 1px solid rgba(255,255,255,.1); border-radius: 14px;
+      overflow: hidden; box-shadow: 0 26px 70px rgba(0,0,0,.55); background: #000; }
+    .demo-player video { display: block; width: 100%; height: auto; }
+    .demo-link { margin-top: 16px; font-size: 14.5px; }
+    .demo-link a { color: var(--zl-olive-soft, #9dae50); text-decoration: none; }
+    .demo-link a:hover { color: var(--zl-olive-bright, #bdce74); text-decoration: underline; }
+
     .dl { text-align: center; padding: 64px 24px; border-top: 1px solid rgba(255,255,255,.07); }
     .dl h2 { margin-bottom: 16px; }
     .dl .s-lede { margin: 0 auto 28px; }
@@ -151,12 +155,12 @@
     </div>
     <div class="wordmark">Channel<span>Block</span></div>
     <nav>
+      <a href="#demo" class="hide-sm" data-i18n="nav_demo">Demo</a>
       <a href="#why" class="hide-sm" data-i18n="nav_why">Why</a>
       <a href="#how" class="hide-sm" data-i18n="nav_how">How it works</a>
       <a href="#install" class="hide-sm" data-i18n="nav_install">Install</a>
       <a href="#faq" class="hide-sm" data-i18n="nav_faq">FAQ</a>
       <a href="https://github.com/zlef-fr/channelblock" target="_blank" rel="noopener" class="hide-sm">GitHub</a>
-      <span class="langsw"><button data-lang="en">EN</button><button data-lang="fr">FR</button></span>
       <a href="/channelblock.zip?v=1.0.0" class="cta" download data-i18n="nav_dl">Download — Free</a>
     </nav>
   </header>
@@ -212,6 +216,22 @@
         <div class="stat"><div class="num" id="stat-hidden">—</div><div class="lbl" data-i18n="stats_hidden">Videos hidden from feeds</div></div>
       </div>
       <p class="statnote" id="statnote" data-i18n="stats_counting">Counting…</p>
+    </div>
+  </section>
+
+  <!-- DEMO VIDEO -->
+  <section class="block" id="demo">
+    <div class="shell">
+      <div class="s-eyebrow" data-i18n="demo_eyebrow">See it in action</div>
+      <h2 data-i18n="demo_h2">A real, ~1-minute live demo.</h2>
+      <p class="s-lede" data-i18n-html="demo_lede">An actual screen recording — Chromium with ChannelBlock loaded, browsing live YouTube. One channel keeps filling the search results; one click on the <code>🚫</code> button purges every one of its videos, then its channel page is walled off.</p>
+      <div class="demo-player">
+        <video controls preload="metadata" playsinline poster="/preview-poster.jpg?v=1">
+          <source src="/demo.mp4?v=1" type="video/mp4">
+          Your browser can't play this video. <a href="/preview">Open the preview page</a> instead.
+        </video>
+      </div>
+      <p class="demo-link"><a href="/preview" data-i18n="demo_link">Open the full-screen preview ↗</a></p>
     </div>
   </section>
 

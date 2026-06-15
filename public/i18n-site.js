@@ -1,11 +1,17 @@
 /* ChannelBlock landing — EN/FR i18n.
- * English is the default & fallback; French auto-detected from the browser and
- * switchable via the header toggle (persisted in localStorage). */
+ * Per the da.zlef.fr convention, with exactly two locales there is NO language
+ * selector: the language is picked silently from the visitor's browser, English
+ * as fallback. Resolution order: the sitewide `zl-lang` cookie (scoped to
+ * .zlef.fr so the choice follows the visitor across every zlef property) →
+ * navigator.language → en. */
 (function () {
   'use strict';
   var DICT = {
     en: {
-      nav_why: 'Why', nav_how: 'How it works', nav_install: 'Install', nav_faq: 'FAQ', nav_dl: 'Download — Free',
+      nav_demo: 'Demo', nav_why: 'Why', nav_how: 'How it works', nav_install: 'Install', nav_faq: 'FAQ', nav_dl: 'Download — Free',
+      demo_eyebrow: 'See it in action', demo_h2: 'A real, ~1-minute live demo.',
+      demo_lede: 'An actual screen recording — Chromium with ChannelBlock loaded, browsing live YouTube. One channel keeps filling the search results; one click on the <code>🚫</code> button purges every one of its videos, then its channel page is walled off.',
+      demo_link: 'Open the full-screen preview ↗',
       hero_eyebrow: 'Browser extension · Free & open source',
       hero_h1: 'Block YouTube channels.<br><em>For good this time.</em>',
       hero_lede: 'YouTube’s “not interested” and “don’t recommend this channel” are soft signals the algorithm quietly overrides — the same channels keep crawling back. ChannelBlock adds a real one-click block button and purges that channel’s videos and Shorts from home, search and recommendations. Block once; they stay gone.',
@@ -59,7 +65,10 @@
       foot_privacy: 'Privacy', foot_more: 'More by ZLEF'
     },
     fr: {
-      nav_why: 'Pourquoi', nav_how: 'Comment ça marche', nav_install: 'Installer', nav_faq: 'FAQ', nav_dl: 'Télécharger — Gratuit',
+      nav_demo: 'Démo', nav_why: 'Pourquoi', nav_how: 'Comment ça marche', nav_install: 'Installer', nav_faq: 'FAQ', nav_dl: 'Télécharger — Gratuit',
+      demo_eyebrow: 'En action', demo_h2: 'Une vraie démo live d’~1 minute.',
+      demo_lede: 'Un véritable enregistrement d’écran — Chromium avec ChannelBlock chargé, sur YouTube en direct. Une chaîne remplit les résultats ; un clic sur le bouton <code>🚫</code> purge toutes ses vidéos, puis sa page de chaîne est murée.',
+      demo_link: 'Ouvrir l’aperçu plein écran ↗',
       hero_eyebrow: 'Extension de navigateur · Gratuite & open source',
       hero_h1: 'Bloquez des chaînes YouTube.<br><em>Cette fois, pour de bon.</em>',
       hero_lede: 'Les options « pas intéressé » et « ne plus recommander cette chaîne » de YouTube ne sont que des signaux que l’algorithme ignore vite — les mêmes chaînes reviennent sans cesse. ChannelBlock ajoute un vrai bouton de blocage en un clic et purge les vidéos et Shorts de cette chaîne de l’accueil, de la recherche et des recommandations. Bloquez une fois ; elles disparaissent.',
@@ -115,10 +124,17 @@
   };
 
   var lang = 'en';
-  function detect() {
+  function cookieLang() {
     try {
-      var saved = localStorage.getItem('cb_lang');
-      if (saved === 'en' || saved === 'fr') return saved;
+      var m = document.cookie.match(/(?:^|;\s*)zl-lang=([^;]+)/);
+      var v = m ? decodeURIComponent(m[1]).toLowerCase() : '';
+      return (v === 'en' || v === 'fr') ? v : '';
+    } catch (_) { return ''; }
+  }
+  function detect() {
+    var c = cookieLang();
+    if (c) return c;
+    try {
       var l = (navigator.language || 'en').toLowerCase();
       return l.indexOf('fr') === 0 ? 'fr' : 'en';
     } catch (_) { return 'en'; }
@@ -129,16 +145,7 @@
     document.documentElement.lang = lang;
     document.querySelectorAll('[data-i18n]').forEach(function (el) { el.textContent = window.CB_T(el.getAttribute('data-i18n')); });
     document.querySelectorAll('[data-i18n-html]').forEach(function (el) { el.innerHTML = window.CB_T(el.getAttribute('data-i18n-html')); });
-    document.querySelectorAll('.langsw button').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-lang') === lang); });
   }
-
-  document.addEventListener('click', function (e) {
-    var b = e.target.closest && e.target.closest('.langsw button');
-    if (!b) return;
-    lang = b.getAttribute('data-lang');
-    try { localStorage.setItem('cb_lang', lang); } catch (_) {}
-    apply();
-  });
 
   lang = detect();
   apply();

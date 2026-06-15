@@ -17,7 +17,6 @@ function applyI18n() {
   document.documentElement.lang = lang;
   document.querySelectorAll('[data-i18n]').forEach((el) => { el.textContent = t(el.getAttribute('data-i18n')); });
   document.querySelectorAll('[data-i18n-ph]').forEach((el) => { el.placeholder = t(el.getAttribute('data-i18n-ph')); });
-  document.querySelectorAll('.lang .lg').forEach((b) => b.classList.toggle('on', b.dataset.lang === lang));
 }
 
 /* ── channel-link parsing (mirror of the content script's, kept tiny) ── */
@@ -95,10 +94,6 @@ function save(cb) {
 /* ── events ── */
 $('power').addEventListener('click', () => { cfg.enabled = !cfg.enabled; save(); });
 TOGGLES.forEach((k) => { $(k).addEventListener('change', (e) => { cfg[k] = e.target.checked; save(); }); });
-
-document.querySelectorAll('.lang .lg').forEach((b) => {
-  b.addEventListener('click', () => { lang = b.dataset.lang; cfg.lang = lang; applyI18n(); save(); });
-});
 
 function doAdd() {
   const err = $('addErr');
