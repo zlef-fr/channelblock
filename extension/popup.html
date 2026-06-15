@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ChannelBlock</title>
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+          <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/>
+          <line x1="5.6" y1="5.6" x2="18.4" y2="18.4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="brand">
+        <div class="name">ChannelBlock</div>
+        <div class="sub" data-i18n="p_tagline">Channel blocking that sticks</div>
+      </div>
+      <div class="lang" role="group" aria-label="Language">
+        <button data-lang="en" class="lg">EN</button>
+        <button data-lang="fr" class="lg">FR</button>
+      </div>
+      <button id="power" class="status" title="Toggle ChannelBlock">
+        <span class="dot"></span><span id="statusText">On</span>
+      </button>
+    </header>
+
+    <main>
+      <div class="sec" data-i18n="sec_filters">Filtering</div>
+
+      <label class="opt">
+        <span class="ot"><span class="lbl" data-i18n="t_hide">Hide blocked channels</span><span class="hint" data-i18n="t_hide_h">Purge their videos from every surface</span></span>
+        <span class="switch"><input id="hideBlocked" type="checkbox"><span class="track"></span></span>
+      </label>
+      <label class="opt">
+        <span class="ot"><span class="lbl" data-i18n="t_buttons">Show block buttons</span><span class="hint" data-i18n="t_buttons_h">On every video & channel page</span></span>
+        <span class="switch"><input id="showButtons" type="checkbox"><span class="track"></span></span>
+      </label>
+      <label class="opt">
+        <span class="ot"><span class="lbl" data-i18n="t_shorts">Block their Shorts too</span><span class="hint" data-i18n="t_shorts_h">Also remove Shorts from blocked channels</span></span>
+        <span class="switch"><input id="blockShorts" type="checkbox"><span class="track"></span></span>
+      </label>
+      <label class="opt">
+        <span class="ot"><span class="lbl" data-i18n="t_guard">Guard channel pages</span><span class="hint" data-i18n="t_guard_h">Cover a blocked channel’s own page</span></span>
+        <span class="switch"><input id="guardPage" type="checkbox"><span class="track"></span></span>
+      </label>
+    </main>
+
+    <section class="list-sec">
+      <div class="sec-row">
+        <span class="sec" data-i18n="sec_list">Blocked channels</span>
+        <span class="count" id="count"></span>
+      </div>
+      <div class="addrow">
+        <input id="addInput" type="text" data-i18n-ph="add_ph" placeholder="Paste a channel URL or @handle…" autocomplete="off" spellcheck="false">
+        <button id="addBtn" data-i18n="add_btn">Block</button>
+      </div>
+      <p id="addErr" class="adderr" hidden></p>
+      <div id="list" class="list"></div>
+      <p id="empty" class="empty" data-i18n="empty"></p>
+      <div class="tools">
+        <button id="export" class="tool" data-i18n="export">Export</button>
+        <button id="import" class="tool" data-i18n="import">Import</button>
+        <button id="clear" class="tool danger" data-i18n="clear">Clear all</button>
+        <input id="importFile" type="file" accept="application/json,.json" hidden>
+      </div>
+    </section>
+
+    <section class="extra">
+      <div class="sec" data-i18n="sec_extra">Privacy</div>
+      <label class="opt subtle">
+        <span class="ot"><span class="lbl" data-i18n="t_stats">Share anonymous stats</span><span class="hint"><span data-i18n="t_stats_h">Aggregate counts only · no identifiers</span> · <a href="https://channelblock.zlef.fr/privacy" target="_blank" rel="noopener" data-i18n="details">details</a></span></span>
+        <span class="switch"><input id="stats" type="checkbox"><span class="track"></span></span>
+      </label>
+    </section>
+
+    <footer>
+      <p class="foot"><span data-i18n="foot">Runs only on youtube.com — no account, no personal data.</span> <a id="reload" href="#" data-i18n="reload">Reload tab</a></p>
+      <p class="foot tip"><a href="https://channelblock.zlef.fr" target="_blank" rel="noopener" data-i18n="foot_link">Free &amp; open source ↗</a></p>
+    </footer>
+  </div>
+  <script src="i18n.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

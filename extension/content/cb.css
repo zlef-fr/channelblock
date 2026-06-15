@@ -1,0 +1,108 @@
+/* ChannelBlock — styles for the UI injected into youtube.com.
+   Scoped to .cb-* / #cb-* so it never touches YouTube's own elements.
+   Olive-leaf palette from the ZLEF design system. */
+
+.cb-host { position: relative; }
+
+.cb-block-btn {
+  position: absolute;
+  top: 6px; left: 6px;
+  z-index: 60;
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0; margin: 0;
+  border: 1px solid rgba(189, 206, 116, .35);
+  border-radius: 6px;
+  background: rgba(10, 12, 8, .82);
+  color: #bdce74;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity .12s ease, background .12s ease, color .12s ease, transform .12s ease;
+  backdrop-filter: blur(3px);
+}
+.cb-host:hover .cb-block-btn,
+.cb-block-btn:focus-visible { opacity: 1; }
+.cb-block-btn:hover { background: #59642a; color: #eef0e2; transform: scale(1.06); }
+.cb-block-btn svg { display: block; }
+
+/* toast */
+#cb-toast {
+  position: fixed;
+  left: 50%; bottom: 26px;
+  transform: translateX(-50%) translateY(14px);
+  z-index: 2147483646;
+  max-width: 80vw;
+  padding: 11px 18px;
+  border: 1px solid rgba(189, 206, 116, .3);
+  border-radius: 8px;
+  background: #0e0e13;
+  color: #e9eae2;
+  font: 600 14px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, .5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .18s ease, transform .18s ease;
+}
+#cb-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* floating channel-page button */
+#cb-page { position: fixed; right: 22px; bottom: 22px; z-index: 2147483646; }
+.cb-pagebtn {
+  display: inline-flex; align-items: center; gap: 9px;
+  padding: 11px 16px;
+  border: 1px solid rgba(189, 206, 116, .35);
+  border-radius: 8px;
+  background: #3e4618;
+  color: #eef0e2;
+  font: 600 14px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  cursor: pointer;
+  box-shadow: 0 12px 34px rgba(0, 0, 0, .45);
+  transition: background .12s ease, border-color .12s ease;
+}
+.cb-pagebtn:hover { background: #59642a; }
+.cb-pagebtn.on { background: #15151c; color: #bdce74; }
+.cb-pagebtn.on:hover { background: #1d1d25; }
+.cb-pagebtn svg { display: block; }
+
+/* full-page guard overlay */
+#cb-overlay {
+  position: fixed; inset: 0;
+  z-index: 2147483645;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  background: rgba(6, 6, 10, .94);
+  backdrop-filter: blur(6px);
+}
+#cb-overlay .cb-ov-card {
+  max-width: 440px; width: 100%;
+  text-align: center;
+  padding: 36px 30px;
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 14px;
+  background: #0e0e13;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, .6);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+#cb-overlay .cb-ov-ic {
+  width: 64px; height: 64px; margin: 0 auto 18px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 14px;
+  background: rgba(189, 206, 116, .12);
+  color: #bdce74;
+}
+#cb-overlay h2 { margin: 0 0 6px; font-size: 24px; font-weight: 700; color: #e9eae2; }
+#cb-overlay .cb-ov-name { margin: 0 0 14px; font-size: 16px; font-weight: 600; color: #bdce74; }
+#cb-overlay .cb-ov-desc { margin: 0 0 24px; font-size: 15px; line-height: 1.55; color: #b6b7ad; }
+#cb-overlay .cb-ov-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+#cb-overlay button {
+  padding: 11px 20px; border-radius: 6px; font: 600 14px system-ui, sans-serif; cursor: pointer;
+  border: 1px solid transparent;
+}
+#cb-overlay .cb-ov-unblock { background: #3e4618; color: #eef0e2; }
+#cb-overlay .cb-ov-unblock:hover { background: #59642a; }
+#cb-overlay .cb-ov-show { background: transparent; border-color: rgba(255, 255, 255, .14); color: #b6b7ad; }
+#cb-overlay .cb-ov-show:hover { border-color: #9dae50; color: #9dae50; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cb-block-btn, #cb-toast, .cb-pagebtn { transition: none; }
+}

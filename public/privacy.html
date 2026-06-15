@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <!--zlef-seo-->
+  <meta name="description" content="ChannelBlock privacy: your blocklist stays on your device. No account, no identifier, no IP logging, never your browsing — only an anonymous, aggregate, opt-out usage count.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://channelblock.zlef.fr/privacy">
+  <meta name="theme-color" content="#06060a">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" href="https://assets.zlef.fr/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="https://assets.zlef.fr/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="https://assets.zlef.fr/apple-touch-icon.png">
+  <link rel="manifest" href="https://assets.zlef.fr/site.webmanifest">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ZLEF">
+  <meta property="og:title" content="ChannelBlock — Privacy">
+  <meta property="og:description" content="Your blocklist stays on your device. Anonymous, aggregate, opt-out usage counts only.">
+  <meta property="og:url" content="https://channelblock.zlef.fr/privacy">
+  <meta property="og:image" content="https://assets.zlef.fr/og-default.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ChannelBlock — Privacy">
+  <meta name="twitter:description" content="Your blocklist stays on your device. Anonymous, opt-out usage counts only.">
+  <meta name="twitter:image" content="https://assets.zlef.fr/og-default.png">
+  <!--/zlef-seo-->
+  <title>ChannelBlock — Privacy</title>
+  <link rel="stylesheet" href="https://da.zlef.fr/tokens.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--zl-bg, #06060a); color: var(--zl-text, #e9eae2); font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 17px; line-height: 1.65; }
+    .shell { max-width: 760px; margin: 0 auto; padding: 48px 24px 80px; }
+    a.back { color: var(--zl-olive-soft, #9dae50); text-decoration: none; font-size: 14.5px; }
+    h1 { font-size: clamp(30px, 5vw, 42px); letter-spacing: -0.02em; margin: 22px 0 8px; }
+    .sub { color: var(--zl-text-muted, #7d7e76); font-size: 15px; margin-bottom: 32px; }
+    h2 { font-size: 21px; margin: 34px 0 10px; letter-spacing: -0.01em; }
+    p { color: var(--zl-text-soft, #b6b7ad); margin-bottom: 14px; }
+    ul { color: var(--zl-text-soft, #b6b7ad); margin: 0 0 14px 22px; }
+    li { margin-bottom: 8px; }
+    code { font-family: ui-monospace, Menlo, monospace; font-size: 14px; color: var(--zl-olive-soft, #9dae50); background: var(--zl-surface-2, #15151c); padding: 1px 6px; border-radius: 4px; }
+    .card { background: var(--zl-surface-1, #0e0e13); border: 1px solid rgba(255,255,255,.08); border-radius: 12px; padding: 22px 24px; margin: 20px 0; }
+    b { color: var(--zl-text, #e9eae2); }
+    a { color: var(--zl-olive-soft, #9dae50); }
+    footer { margin-top: 40px; font-size: 13.5px; color: var(--zl-text-faint, #54554f); }
+  </style>
+</head>
+<body class="zl-scope">
+  <div class="shell">
+    <a class="back" href="/">← ChannelBlock</a>
+    <h1>Privacy</h1>
+    <div class="sub">Last updated: June 2026</div>
+
+    <div class="card">
+      <p style="margin:0"><b>The short version:</b> your blocklist never leaves your device. ChannelBlock has no account, logs no IP, and never sees your browsing. The only thing it can send is an anonymous, aggregate, opt-out usage count — and you can turn that off in one click.</p>
+    </div>
+
+    <h2>What stays on your device</h2>
+    <p>Your blocked-channels list, your toggle settings and your chosen language are stored locally with the browser's extension storage (<code>chrome.storage.local</code>). They are never uploaded. Use <b>Export</b> / <b>Import</b> in the popup to move the list between your own browsers — it's a plain JSON file you control.</p>
+
+    <h2>What it sends (and only if you let it)</h2>
+    <p>If "Share anonymous stats" is on (default), roughly once per browsing session the extension sends a single snapshot to <code>channelblock.zlef.fr/api/collect</code> containing:</p>
+    <ul>
+      <li>the extension <b>version</b>;</li>
+      <li>which feature <b>toggles</b> are on (e.g. block Shorts, guard pages) — booleans only;</li>
+      <li>two <b>counters</b>: how many channels you've blocked and how many videos were hidden.</li>
+    </ul>
+    <p>That's the complete payload. It does <b>not</b> include any account or identifier, your IP is <b>not</b> stored, and it never contains channel names, URLs, watch history or anything about what you browse. The numbers are aggregated per day and published openly at <a href="https://channelblock.zlef.fr/api/stats" target="_blank" rel="noopener">/api/stats</a>.</p>
+
+    <h2>Turning it off</h2>
+    <p>Open the popup and switch off <b>"Share anonymous stats"</b>. Nothing is sent from then on, and any pending counters are dropped.</p>
+
+    <h2>Permissions</h2>
+    <ul>
+      <li><code>storage</code> — to save your blocklist and settings locally.</li>
+      <li><code>*://*.youtube.com/*</code> — so the content script can filter your feed on YouTube. It runs nowhere else.</li>
+      <li><code>channelblock.zlef.fr</code> — the destination for the optional anonymous stats ping only.</li>
+    </ul>
+
+    <h2>No third parties</h2>
+    <p>There are no ads, no analytics SDKs, no trackers, and no data is sold or shared. ChannelBlock is open source (MIT) — you can read exactly what it does on <a href="https://github.com/zlef-fr/channelblock" target="_blank" rel="noopener">GitHub</a>.</p>
+
+    <footer>ChannelBlock is a ZLEF project · <a href="https://zlef.fr">zlef.fr</a> · Questions: <a href="mailto:claude@zlef.fr">claude@zlef.fr</a></footer>
+  </div>
+</body>
+</html>

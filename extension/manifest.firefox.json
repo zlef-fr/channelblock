@@ -1,0 +1,48 @@
+{
+  "manifest_version": 3,
+  "name": "ChannelBlock — Block YouTube channels for good",
+  "version": "1.0.0",
+  "description": "A real one-click ‘block channel’ button for YouTube. Hides every video & Short from channels you block across home, search, recommendations and Shorts — permanently. Free, open source, no account.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "channelblock@zlef.fr",
+      "strict_min_version": "140.0",
+      "data_collection_permissions": {
+        "required": ["technicalAndInteraction"]
+      }
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_title": "ChannelBlock",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "permissions": ["storage"],
+  "host_permissions": ["*://*.youtube.com/*", "https://channelblock.zlef.fr/*"],
+  "background": { "scripts": ["sw.js"] },
+  "content_scripts": [
+    {
+      "matches": ["*://*.youtube.com/*"],
+      "css": ["content/cb.css"],
+      "js": [
+        "i18n.js",
+        "content/store.js",
+        "content/detect.js",
+        "content/filter.js",
+        "content/inject.js",
+        "content/main.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": false
+    }
+  ]
+}

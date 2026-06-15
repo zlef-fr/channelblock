@@ -1,0 +1,10 @@
+services:
+  web:
+    build: .
+    container_name: channelblock
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      PORT: "10049"
+    volumes:
+      - ./data:/app/data
