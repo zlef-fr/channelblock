@@ -5,6 +5,8 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const seohead = require('./seohead');
+seohead.start('channelblock');
 
 const PORT = Number(process.env.PORT || 10049);
 const ROOT = path.join(__dirname, 'public');
@@ -103,6 +105,11 @@ const server = http.createServer((req, res) => {
         }
       }
 
+      if (ext === '.html') {
+        const body = Buffer.from(seohead.inject(fs.readFileSync(file)));
+        res.writeHead(200, { 'content-type': type, 'cache-control': cache, 'content-length': body.length });
+        return res.end(body);
+      }
       const headers = { 'content-type': type, 'cache-control': cache, 'accept-ranges': 'bytes', 'content-length': st.size };
       if (ext === '.zip') headers['content-disposition'] = 'attachment; filename="channelblock.zip"';
       if (ext === '.xpi') headers['content-disposition'] = 'attachment; filename="channelblock-firefox.xpi"';
